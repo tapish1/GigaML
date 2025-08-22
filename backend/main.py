@@ -373,6 +373,14 @@ def tick():
                         ride_request.current_phase = "completed"
                         ride_request.status = "completed"
                         drivers[driver_id].status = "available"
+                        
+                        # Update rider location to dropoff location
+                        if ride_request.rider_id in riders:
+                            riders[ride_request.rider_id].pickup_location.x = dropoff_x
+                            riders[ride_request.rider_id].pickup_location.y = dropoff_y
+                            riders[ride_request.rider_id].dropoff_location.x = dropoff_x
+                            riders[ride_request.rider_id].dropoff_location.y = dropoff_y
+                        
                         completed_rides.append(rider_id)
         
         # Remove completed rides

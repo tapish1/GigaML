@@ -252,8 +252,13 @@ function App() {
       ride.status === 'assigned' && ride.current_phase === 'to_dropoff'
     );
     
+    // Show rider at their current location (pickup or dropoff)
+    const isRiderAtLocation = riders.some(rider => 
+      rider.pickup_location.x === x && rider.pickup_location.y === y
+    );
+    
     if (isDriver) return 'grid-cell driver';
-    if (isRiderAtDropoff) return 'grid-cell rider';
+    if (isRiderAtDropoff || isRiderAtLocation) return 'grid-cell rider';
     if (isPickupLocation) return 'grid-cell pickup';
     if (isDropoffLocation) return 'grid-cell dropoff';
     return 'grid-cell';
